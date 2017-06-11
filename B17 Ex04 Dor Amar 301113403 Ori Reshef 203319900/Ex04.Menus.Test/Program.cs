@@ -4,6 +4,7 @@
     {
         static void Main()
         {
+            Test myTest = new Test();
         }
     }
 }
