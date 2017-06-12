@@ -10,6 +10,7 @@ namespace Ex04.Menus.Interfaces
         private string m_Option;
         private bool m_IsActionItem = false;
         private IPickObserver m_PickObserver;
+        private const int v_Quit = 0;
 
         // Getters 
         public string Option { get => m_Option; }
@@ -39,34 +40,31 @@ namespace Ex04.Menus.Interfaces
 
         public void show()
         {
-            Console.Clear();
-            Console.WriteLine("========== {0} =========={1}", m_Option);
-            displayOptions();
-            ushort choice = getUsersChoice();
-            if (choice == 0)
+            ushort choice = v_Quit;
+            do
             {
-                //if Exit was chosen return to main and exit
-                if (m_ParentItem == null)
+                Console.Clear();
+                Console.WriteLine("========== {0} ==========", m_Option);
+                displayOptions();
+                choice = getUsersChoice();
+                if (choice == v_Quit)
                 {
                     return;
                 }
                 else
                 {
-                    m_ParentItem.show();
+                    MenuItem chosenMenuItem = m_ChildItems[choice - 1];
+                    if (chosenMenuItem.IsActionItem)
+                    {
+                        chosenMenuItem.PickObserver.ReportPicked(chosenMenuItem.Option);
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        chosenMenuItem.show();
+                    }
                 }
-            }
-            else
-            {
-                MenuItem chosenMenuItem = m_ChildItems[choice - 1];
-                if (chosenMenuItem.IsActionItem)
-                {
-                    chosenMenuItem.PickObserver.ReportPicked(chosenMenuItem.Option);                        
-                }
-                else
-                {
-                    chosenMenuItem.show();
-                }
-            }
+            } while (choice != v_Quit);
         }
 
         public void displayOptions()

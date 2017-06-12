@@ -1,72 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Delegates
 {
-    class MenuItem
+    public delegate void PickNotifier();
+
+    public class MenuItem
     {
         private MenuItem m_ParentItem;
         private List<MenuItem> m_ChildItems;
         private string m_Option;
         private bool m_IsActionItem = false;
-        private IPickObserver m_PickObserver;
+        public event PickNotifier m_PickNotifier;
+        private const int v_Quit = 0;
 
         // Getters 
         public string Option { get => m_Option; }
         public List<MenuItem> ChildItems { get => m_ChildItems; }
-        public bool IsActionItem { get => m_IsActionItem; }
-        public IPickObserver PickObserver { get => m_PickObserver; }
+        public bool IsActionItem { get => m_IsActionItem; }        
 
         // Methods
-        public MenuItem(string i_Option, MenuItem i_ParentItem)
+        public MenuItem(string i_Option, MenuItem i_ParentItem, bool i_IsActionItem)
         {
             m_Option = i_Option;
             m_ParentItem = i_ParentItem;
+            m_IsActionItem = i_IsActionItem;
             m_ChildItems = new List<MenuItem>();
-
-            //if (m_ParentItem != null)
-            //{
-            //    m_ParentItem.AddChild(this);
-            //}
-        }
-
-        public MenuItem(string i_Option, MenuItem i_ParentItem, IPickObserver i_PickObserver)
-        : this(i_Option, i_ParentItem)
-        {
-            m_PickObserver = i_PickObserver;
-            m_IsActionItem = true;
         }
 
         public void show()
         {
-            Console.Clear();
-            Console.WriteLine("========== {0} =========={1}", m_Option);
-            displayOptions();
-            ushort choice = getUsersChoice();
-            if (choice == 0)
+            ushort choice = v_Quit;
+            do
             {
-                //if Exit was chosen return to main and exit
-                if (m_ParentItem == null)
+                Console.Clear();
+                Console.WriteLine("========== {0} ==========", m_Option);
+                displayOptions();
+                choice = getUsersChoice();
+                if (choice == v_Quit)
                 {
                     return;
                 }
                 else
                 {
-                    m_ParentItem.show();
+                    MenuItem chosenMenuItem = m_ChildItems[choice - 1];
+                    if (chosenMenuItem.IsActionItem)
+                    {
+                        chosenMenuItem.OnPick();
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        chosenMenuItem.show();
+                    }
                 }
-            }
-            else
-            {
-                MenuItem chosenMenuItem = m_ChildItems[choice - 1];
-                if (chosenMenuItem.IsActionItem)
-                {
-                    chosenMenuItem.PickObserver.ReportPicked(chosenMenuItem.Option);                        
-                }
-                else
-                {
-                    chosenMenuItem.show();
-                }
-            }
+            } while (choice != v_Quit);
         }
 
         public void displayOptions()
@@ -89,7 +77,7 @@ namespace Ex04.Menus.Interfaces
         private ushort getUsersChoice()
         {
             string input = Console.ReadLine();
-            ushort usersChoice = ushort.Parse(input);
+            ushort usersChoice = ushort.Parse(input); // TODO: handle empty strings and other things
             while (isValidInput(usersChoice) == false)
             {
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
@@ -101,6 +89,14 @@ namespace Ex04.Menus.Interfaces
         private bool isValidInput(ushort i_UsersChoice)
         {
             return 0 <= i_UsersChoice && i_UsersChoice <= m_ChildItems.Count;
+        }
+
+        protected virtual void OnPick()
+        {
+            if (m_PickNotifier != null)
+            {
+                m_PickNotifier.Invoke();
+            }
         }
     }
 }

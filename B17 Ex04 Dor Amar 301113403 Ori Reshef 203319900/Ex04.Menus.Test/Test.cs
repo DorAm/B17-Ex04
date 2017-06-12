@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Ex04.Menus.Interfaces;
 using Ex04.Menus.Delegates;
 
@@ -19,32 +14,56 @@ namespace Ex04.Menus.Test
             CharsCount,
             ShowDate,
             ShowTime
-        }
+        }                    
 
         // TODO: 
         //1. input validations
         //2. try \ catch
         //3. testing
 
-        private MainMenu m_MainMenu;
+        private Interfaces.MainMenu m_InterfacesMainMenu;
+        public Interfaces.MainMenu InterfacesMainMenu
+        {
+            get { return m_InterfacesMainMenu; }
+        }
+    
+        private Delegates.MainMenu m_DelegatesMainMenu;
+        public Delegates.MainMenu DelegatesMainMenu
+        {
+            get { return m_DelegatesMainMenu; }
+        }
 
         public Test()
         {
-            m_MainMenu = new MainMenu();
-            initMenus();
-            m_MainMenu.show();
+            m_InterfacesMainMenu = new Interfaces.MainMenu();
+            initInterfacesMenus();
+
+            m_DelegatesMainMenu = new Delegates.MainMenu();
+            initDelegatesMenus();
         }
 
-        private void initMenus()
+        private void initInterfacesMenus()
         {
-            m_MainMenu.addMenuItem("Main Menu", "Actions and Info");
-            m_MainMenu.addMenuItem("Actions and Info", "Display Version", this);
-            m_MainMenu.addMenuItem("Actions and Info", "Actions");
-            m_MainMenu.addMenuItem("Actions", "Count Spaces", this);
-            m_MainMenu.addMenuItem("Actions", "Chars count", this);
-            m_MainMenu.addMenuItem("Main Menu", "Show Date/Time");
-            m_MainMenu.addMenuItem("Show Date/Time", "Show Time", this);
-            m_MainMenu.addMenuItem("Show Date/Time", "Show Date", this);
+            m_InterfacesMainMenu.addMenuItem("Main Menu", "Actions and Info");
+            m_InterfacesMainMenu.addMenuItem("Actions and Info", "Display Version", this);
+            m_InterfacesMainMenu.addMenuItem("Actions and Info", "Actions");
+            m_InterfacesMainMenu.addMenuItem("Actions", "Count Spaces", this);
+            m_InterfacesMainMenu.addMenuItem("Actions", "Chars count", this);
+            m_InterfacesMainMenu.addMenuItem("Main Menu", "Show Date/Time");
+            m_InterfacesMainMenu.addMenuItem("Show Date/Time", "Show Time", this);
+            m_InterfacesMainMenu.addMenuItem("Show Date/Time", "Show Date", this);
+        }
+
+        private void initDelegatesMenus()
+        {
+            m_DelegatesMainMenu.addMenuItem("Main Menu", "Actions and Info");
+            m_DelegatesMainMenu.addMenuItem("Actions and Info", "Display Version", new PickNotifier(displayVersion));
+            m_DelegatesMainMenu.addMenuItem("Actions and Info", "Actions");
+            m_DelegatesMainMenu.addMenuItem("Actions", "Count Spaces", new PickNotifier(countSpaces));
+            m_DelegatesMainMenu.addMenuItem("Actions", "Chars count", new PickNotifier(charsCount));
+            m_DelegatesMainMenu.addMenuItem("Main Menu", "Show Date/Time");
+            m_DelegatesMainMenu.addMenuItem("Show Date/Time", "Show Time", new PickNotifier(showTime));
+            m_DelegatesMainMenu.addMenuItem("Show Date/Time", "Show Date", new PickNotifier(showDate));
         }
 
         public void ReportPicked(string i_Option)

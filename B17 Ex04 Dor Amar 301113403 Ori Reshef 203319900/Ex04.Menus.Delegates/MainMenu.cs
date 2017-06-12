@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Ex04.Menus.Interfaces
+
+namespace Ex04.Menus.Delegates
 {
     public class MainMenu
     {
@@ -10,12 +11,8 @@ namespace Ex04.Menus.Interfaces
         public MainMenu()
         {
             MenuItem orphan = null;
-            m_RootMenuItem = new MenuItem("Main Menu", orphan);
-        }
-
-        public void ReportExit()
-        {
-            
+            bool v_IsActionItem = true;
+            m_RootMenuItem = new MenuItem("Main Menu", orphan, !v_IsActionItem);
         }
 
         // Methods
@@ -25,10 +22,12 @@ namespace Ex04.Menus.Interfaces
         }
 
         // For Action Item:
-        public void addMenuItem(string i_ParentNodeName, string i_OptionName, IPickObserver i_PickObserver)
+        public void addMenuItem(string i_ParentNodeName, string i_OptionName, PickNotifier i_PickNorifier) 
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
-            MenuItem newNode = new MenuItem(i_OptionName, parent, i_PickObserver);
+            const bool v_IsActionItem = true;
+            MenuItem newNode = new MenuItem(i_OptionName, parent, v_IsActionItem);
+            newNode.m_PickNotifier += i_PickNorifier;
             parent.ChildItems.Add(newNode);
         }
 
@@ -36,7 +35,8 @@ namespace Ex04.Menus.Interfaces
         public void addMenuItem(string i_ParentNodeName, string i_OptionName)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
-            MenuItem newNode = new MenuItem(i_OptionName, parent);
+            const bool v_IsActionItem = true;
+            MenuItem newNode = new MenuItem(i_OptionName, parent, !v_IsActionItem);
             parent.ChildItems.Add(newNode);
         }
 
