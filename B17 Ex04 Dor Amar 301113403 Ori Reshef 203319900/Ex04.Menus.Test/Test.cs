@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Ex04.Menus.Interfaces;
 using Ex04.Menus.Delegates;
 
@@ -122,13 +123,13 @@ namespace Ex04.Menus.Test
         private void showDate()
         {
             DateTime today = DateTime.Today;
-            Console.WriteLine("Today is: {0}", today.Date);
+            Console.WriteLine("Today is: {0}", today.ToString("d"));
         }
 
         private void showTime()
         {
-            DateTime today = DateTime.Today;
-            Console.WriteLine("Today is: {0}", today.TimeOfDay);
+            DateTime localDate = DateTime.Now;
+            Console.WriteLine("The time is: {0}", localDate.ToString("h:mm:ss tt"));
         }
     }
 }
