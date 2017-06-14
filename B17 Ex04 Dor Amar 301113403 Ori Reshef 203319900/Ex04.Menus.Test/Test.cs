@@ -6,7 +6,7 @@ using Ex04.Menus.Delegates;
 
 namespace Ex04.Menus.Test
 {
-    class Test : IPickObserver
+    public class Test : IPickObserver
     {
         private enum eOptions
         {
@@ -17,18 +17,14 @@ namespace Ex04.Menus.Test
             ShowTime
         }                    
 
-        // TODO: 
-        //1. input validations
-        //2. try \ catch
-        //3. testing
-
         private Interfaces.MainMenu m_InterfacesMainMenu;
+        private Delegates.MainMenu m_DelegatesMainMenu;
+
         public Interfaces.MainMenu InterfacesMainMenu
         {
             get { return m_InterfacesMainMenu; }
         }
     
-        private Delegates.MainMenu m_DelegatesMainMenu;
         public Delegates.MainMenu DelegatesMainMenu
         {
             get { return m_DelegatesMainMenu; }
@@ -70,7 +66,7 @@ namespace Ex04.Menus.Test
         public void ReportPicked(string i_Option)
         {
             bool v_IgnoreCase = true;
-            eOptions chosenOption = (eOptions)Enum.Parse(typeof(eOptions), i_Option.Replace(" ", String.Empty), v_IgnoreCase);
+            eOptions chosenOption = (eOptions)Enum.Parse(typeof(eOptions), i_Option.Replace(" ", string.Empty), v_IgnoreCase);
             routeToFunction(chosenOption);
         }
 
@@ -96,8 +92,6 @@ namespace Ex04.Menus.Test
                 default:
                     break;
             }
-
-
         }
 
         private void displayVersion()

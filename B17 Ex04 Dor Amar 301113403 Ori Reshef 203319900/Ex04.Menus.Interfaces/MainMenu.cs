@@ -13,11 +13,6 @@ namespace Ex04.Menus.Interfaces
             m_RootMenuItem = new MenuItem("Main Menu", orphan);
         }
 
-        public void ReportExit()
-        {
-            
-        }
-
         // Methods
         public void show()
         {
@@ -52,6 +47,7 @@ namespace Ex04.Menus.Interfaces
         private MenuItem find(string i_ParentNodeName, MenuItem i_MenuItemNode)
         {
             MenuItem resItem = null;
+
             if (i_MenuItemNode.IsActionItem)
             {
                 resItem = null;
@@ -67,6 +63,7 @@ namespace Ex04.Menus.Interfaces
                     resItem = find(i_ParentNodeName, itemNode);
                 }       
             }
+
             return resItem;
         }                            
     }

@@ -7,16 +7,20 @@ namespace Ex04.Menus.Delegates
 
     public class MenuItem
     {
+        private const int v_Quit = 0;
         private MenuItem m_ParentItem;
         private List<MenuItem> m_ChildItems;
         private string m_Option;
         private bool m_IsActionItem = false;
+
+        // Delegates
         public event PickNotifier m_PickNotifier;
-        private const int v_Quit = 0;
 
         // Getters 
         public string Option { get => m_Option; }
+
         public List<MenuItem> ChildItems { get => m_ChildItems; }
+
         public bool IsActionItem { get => m_IsActionItem; }        
 
         // Methods
@@ -54,7 +58,8 @@ namespace Ex04.Menus.Delegates
                         chosenMenuItem.show();
                     }
                 }
-            } while (choice != v_Quit);
+            }
+            while (choice != v_Quit);
         }
 
         public void displayOptions()
@@ -68,9 +73,9 @@ namespace Ex04.Menus.Delegates
                     Console.WriteLine("{0}. {1}", index, item.Option);
                     index += 1;
                 }
+
                 Console.WriteLine("Please choose one of the above options");
                 Console.WriteLine("======================================");
-
             }
         }
 
@@ -83,12 +88,13 @@ namespace Ex04.Menus.Delegates
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
                 usersChoice = ushort.Parse(input);
             }
+
             return usersChoice;
         }
 
         private bool isValidInput(ushort i_UsersChoice)
         {
-            return 0 <= i_UsersChoice && i_UsersChoice <= m_ChildItems.Count;
+            return i_UsersChoice >= 0 && i_UsersChoice <= m_ChildItems.Count;
         }
 
         protected virtual void OnPick()

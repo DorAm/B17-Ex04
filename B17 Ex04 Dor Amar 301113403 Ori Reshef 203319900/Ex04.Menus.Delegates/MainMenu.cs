@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Ex04.Menus.Delegates
 {
     public class MainMenu
@@ -67,6 +66,7 @@ namespace Ex04.Menus.Delegates
                     resItem = find(i_ParentNodeName, itemNode);
                 }       
             }
+
             return resItem;
         }                            
     }
