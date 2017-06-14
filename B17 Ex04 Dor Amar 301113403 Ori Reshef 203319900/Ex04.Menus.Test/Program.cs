@@ -1,10 +1,21 @@
-﻿namespace Ex04.Menus.Test
+﻿using System;
+
+namespace Ex04.Menus.Test
 {
-    class Program
+    public class Program
     {
-        static void Main()
+        public static void Main()
         {
-            Test myTest = new Test();
+            displayMenus();
+        }
+
+        private static void displayMenus()
+        {
+            Test menusTest = new Test();
+            menusTest.InterfacesMainMenu.Show();
+            Console.WriteLine("Press any key to proceed to the Delegates Main Menu");
+            Console.ReadLine();
+            menusTest.DelegatesMainMenu.Show();
         }
     }
 }
