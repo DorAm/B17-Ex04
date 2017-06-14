@@ -83,7 +83,7 @@ namespace Ex04.Menus.Delegates
         {
             string input = Console.ReadLine();
             ushort usersChoice;
-            // TODO: handle empty strings and other things
+
             while (validateAndParse(input, out usersChoice) == false)
             {
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
