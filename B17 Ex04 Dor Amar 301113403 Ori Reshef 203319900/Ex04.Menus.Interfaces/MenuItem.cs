@@ -91,6 +91,7 @@ namespace Ex04.Menus.Interfaces
             while (isValidInput(usersChoice) == false)
             {
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
+                input = Console.ReadLine();
                 usersChoice = ushort.Parse(input);
             }
             return usersChoice;
