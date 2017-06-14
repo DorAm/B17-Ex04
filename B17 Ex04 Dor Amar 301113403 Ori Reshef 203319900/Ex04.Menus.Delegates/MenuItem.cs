@@ -32,14 +32,14 @@ namespace Ex04.Menus.Delegates
             m_ChildItems = new List<MenuItem>();
         }
 
-        public void show()
+        public void Show()
         {
             ushort choice = v_Quit;
             do
             {
                 Console.Clear();
                 Console.WriteLine("========== {0} ==========", m_Option);
-                displayOptions();
+                DisplayOptions();
                 choice = getUsersChoice();
                 if (choice == v_Quit)
                 {
@@ -55,14 +55,14 @@ namespace Ex04.Menus.Delegates
                     }
                     else
                     {
-                        chosenMenuItem.show();
+                        chosenMenuItem.Show();
                     }
                 }
             }
             while (choice != v_Quit);
         }
 
-        public void displayOptions()
+        public void DisplayOptions()
         {
             if (IsActionItem == false)
             {

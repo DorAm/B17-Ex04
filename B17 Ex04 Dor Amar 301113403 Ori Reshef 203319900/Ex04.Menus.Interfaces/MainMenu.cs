@@ -14,13 +14,13 @@ namespace Ex04.Menus.Interfaces
         }
 
         // Methods
-        public void show()
+        public void Show()
         {
-            m_RootMenuItem.show();
+            m_RootMenuItem.Show();
         }
 
         // For Action Item:
-        public void addMenuItem(string i_ParentNodeName, string i_OptionName, IPickObserver i_PickObserver)
+        public void AddMenuItem(string i_ParentNodeName, string i_OptionName, IPickObserver i_PickObserver)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             MenuItem newNode = new MenuItem(i_OptionName, parent, i_PickObserver);
@@ -28,19 +28,19 @@ namespace Ex04.Menus.Interfaces
         }
 
         // For Sub-Menu Item:
-        public void addMenuItem(string i_ParentNodeName, string i_OptionName)
+        public void AddMenuItem(string i_ParentNodeName, string i_OptionName)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             MenuItem newNode = new MenuItem(i_OptionName, parent);
             parent.ChildItems.Add(newNode);
         }
 
-        public void addMenuItems(string i_ParentNodeName, params string[] i_OptionNames)
+        public void AddMenuItems(string i_ParentNodeName, params string[] i_OptionNames)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             foreach (string option in i_OptionNames)
             {
-                addMenuItem(i_ParentNodeName, option);                
+                AddMenuItem(i_ParentNodeName, option);                
             }            
         }
 

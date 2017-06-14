@@ -7,10 +7,10 @@ namespace Ex04.Menus.Test
         public static void Main()
         {
             Test menusTest = new Test();   
-            menusTest.InterfacesMainMenu.show();
+            menusTest.InterfacesMainMenu.Show();
             Console.WriteLine("Press any key to proceed to the Delegates Main Menu");
             Console.ReadLine();
-            menusTest.DelegatesMainMenu.show();
+            menusTest.DelegatesMainMenu.Show();
         }
     }
 }

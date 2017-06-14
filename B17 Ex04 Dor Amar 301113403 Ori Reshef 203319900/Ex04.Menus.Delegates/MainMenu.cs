@@ -15,13 +15,13 @@ namespace Ex04.Menus.Delegates
         }
 
         // Methods
-        public void show()
+        public void Show()
         {
-            m_RootMenuItem.show();
+            m_RootMenuItem.Show();
         }
 
         // For Action Item:
-        public void addMenuItem(string i_ParentNodeName, string i_OptionName, PickNotifier i_PickNorifier) 
+        public void AddMenuItem(string i_ParentNodeName, string i_OptionName, PickNotifier i_PickNorifier) 
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             const bool v_IsActionItem = true;
@@ -31,7 +31,7 @@ namespace Ex04.Menus.Delegates
         }
 
         // For Sub-Menu Item:
-        public void addMenuItem(string i_ParentNodeName, string i_OptionName)
+        public void AddMenuItem(string i_ParentNodeName, string i_OptionName)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             const bool v_IsActionItem = true;
@@ -39,12 +39,12 @@ namespace Ex04.Menus.Delegates
             parent.ChildItems.Add(newNode);
         }
 
-        public void addMenuItems(string i_ParentNodeName, params string[] i_OptionNames)
+        public void AddMenuItems(string i_ParentNodeName, params string[] i_OptionNames)
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             foreach (string option in i_OptionNames)
             {
-                addMenuItem(i_ParentNodeName, option);                
+                AddMenuItem(i_ParentNodeName, option);                
             }            
         }
 
