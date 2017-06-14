@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex04.Menus.Delegates
 {
-    public delegate void PickNotifier();
+    public delegate void PickHandler();
 
     public class MenuItem
     {
@@ -14,7 +14,7 @@ namespace Ex04.Menus.Delegates
         private bool m_IsActionItem = false;
 
         // Delegates
-        public event PickNotifier m_PickNotifier;
+        public event PickHandler Pick;
 
         // Getters 
         public string Option { get => m_Option; }
@@ -99,9 +99,9 @@ namespace Ex04.Menus.Delegates
 
         protected virtual void OnPick()
         {
-            if (m_PickNotifier != null)
+            if (Pick != null)
             {
-                m_PickNotifier.Invoke();
+                Pick.Invoke();
             }
         }
     }

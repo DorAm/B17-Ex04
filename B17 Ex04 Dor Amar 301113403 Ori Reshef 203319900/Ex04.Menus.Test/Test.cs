@@ -8,6 +8,7 @@ namespace Ex04.Menus.Test
 {
     public class Test : IPickObserver
     {
+        [Flags]
         private enum eOptions
         {
             DisplayVersion = 1,
@@ -15,7 +16,7 @@ namespace Ex04.Menus.Test
             CharsCount,
             ShowDate,
             ShowTime
-        }                    
+        }
 
         private Interfaces.MainMenu m_InterfacesMainMenu;
         private Delegates.MainMenu m_DelegatesMainMenu;
@@ -24,7 +25,7 @@ namespace Ex04.Menus.Test
         {
             get { return m_InterfacesMainMenu; }
         }
-    
+
         public Delegates.MainMenu DelegatesMainMenu
         {
             get { return m_DelegatesMainMenu; }
@@ -45,7 +46,7 @@ namespace Ex04.Menus.Test
             m_InterfacesMainMenu.AddMenuItem("Actions and Info", "Display Version", this);
             m_InterfacesMainMenu.AddMenuItem("Actions and Info", "Actions");
             m_InterfacesMainMenu.AddMenuItem("Actions", "Count Spaces", this);
-            m_InterfacesMainMenu.AddMenuItem("Actions", "Chars count", this);
+            m_InterfacesMainMenu.AddMenuItem("Actions", "Chars Count", this);
             m_InterfacesMainMenu.AddMenuItem("Main Menu", "Show Date/Time");
             m_InterfacesMainMenu.AddMenuItem("Show Date/Time", "Show Time", this);
             m_InterfacesMainMenu.AddMenuItem("Show Date/Time", "Show Date", this);
@@ -54,15 +55,16 @@ namespace Ex04.Menus.Test
         private void initDelegatesMenus()
         {
             m_DelegatesMainMenu.AddMenuItem("Main Menu", "Actions and Info");
-            m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Display Version", new PickNotifier(displayVersion));
+            m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Display Version", new PickHandler(MenuItem_DisplayVersion));
             m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Actions");
-            m_DelegatesMainMenu.AddMenuItem("Actions", "Count Spaces", new PickNotifier(countSpaces));
-            m_DelegatesMainMenu.AddMenuItem("Actions", "Chars count", new PickNotifier(charsCount));
+            m_DelegatesMainMenu.AddMenuItem("Actions", "Count Spaces", new PickHandler(MenuItem_CountSpaces));
+            m_DelegatesMainMenu.AddMenuItem("Actions", "Chars Count", new PickHandler(MenuItem_CharsCount));
             m_DelegatesMainMenu.AddMenuItem("Main Menu", "Show Date/Time");
-            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Time", new PickNotifier(showTime));
-            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Date", new PickNotifier(showDate));
+            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Time", new PickHandler(MenuItem_ShowTime));
+            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Date", new PickHandler(MenuItem_ShowDate));
         }
 
+        // TODO: ORI - neads exception handling
         public void ReportPicked(string i_Option)
         {
             bool v_IgnoreCase = true;
@@ -75,31 +77,31 @@ namespace Ex04.Menus.Test
             switch (i_ChosenOption)
             {
                 case eOptions.CharsCount:
-                    charsCount();
+                    MenuItem_CharsCount();
                     break;
                 case eOptions.CountSpaces:
-                    countSpaces();
+                    MenuItem_CountSpaces();
                     break;
                 case eOptions.DisplayVersion:
-                    displayVersion();
+                    MenuItem_DisplayVersion();
                     break;
                 case eOptions.ShowDate:
-                    showDate();
+                    MenuItem_ShowDate();
                     break;
                 case eOptions.ShowTime:
-                    showTime();
+                    MenuItem_ShowTime();
                     break;
                 default:
                     break;
             }
         }
 
-        private void displayVersion()
+        private void MenuItem_DisplayVersion()
         {
             Console.WriteLine("App Version: 17.2.4.0");
         }
 
-        private void countSpaces()
+        private void MenuItem_CountSpaces()
         {
             Console.WriteLine("Please enter a sentence");
             string userInput = Console.ReadLine();
@@ -107,20 +109,20 @@ namespace Ex04.Menus.Test
             Console.WriteLine("There are {0} whitespaces", occurences);
         }
 
-        private void charsCount()
+        private void MenuItem_CharsCount()
         {
             Console.WriteLine("Please enter a sentence");
             string userInput = Console.ReadLine();
             Console.WriteLine("There are {0} characters", userInput.Length);
         }
 
-        private void showDate()
+        private void MenuItem_ShowDate()
         {
             DateTime today = DateTime.Today;
             Console.WriteLine("Today is: {0}", today.ToString("d"));
         }
 
-        private void showTime()
+        private void MenuItem_ShowTime()
         {
             DateTime localDate = DateTime.Now;
             Console.WriteLine("The time is: {0}", localDate.ToString("h:mm:ss tt"));

@@ -6,7 +6,12 @@ namespace Ex04.Menus.Test
     {
         public static void Main()
         {
-            Test menusTest = new Test();   
+            displayMenus();
+        }
+
+        private static void displayMenus()
+        {
+            Test menusTest = new Test();
             menusTest.InterfacesMainMenu.Show();
             Console.WriteLine("Press any key to proceed to the Delegates Main Menu");
             Console.ReadLine();

@@ -21,12 +21,12 @@ namespace Ex04.Menus.Delegates
         }
 
         // For Action Item:
-        public void AddMenuItem(string i_ParentNodeName, string i_OptionName, PickNotifier i_PickNorifier) 
+        public void AddMenuItem(string i_ParentNodeName, string i_OptionName, PickHandler i_PickNotifier) 
         {
             MenuItem parent = find(i_ParentNodeName, m_RootMenuItem);
             const bool v_IsActionItem = true;
             MenuItem newNode = new MenuItem(i_OptionName, parent, v_IsActionItem);
-            newNode.m_PickNotifier += i_PickNorifier;
+            newNode.Pick += i_PickNotifier;
             parent.ChildItems.Add(newNode);
         }
 
