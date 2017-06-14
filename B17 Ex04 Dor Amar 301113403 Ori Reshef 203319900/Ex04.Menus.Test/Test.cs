@@ -55,13 +55,13 @@ namespace Ex04.Menus.Test
         private void initDelegatesMenus()
         {
             m_DelegatesMainMenu.AddMenuItem("Main Menu", "Actions and Info");
-            m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Display Version", new PickHandler(MenuItem_DisplayVersion));
+            m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Display Version", new PickHandler(MenuItemDisplayVersion_Pick));
             m_DelegatesMainMenu.AddMenuItem("Actions and Info", "Actions");
-            m_DelegatesMainMenu.AddMenuItem("Actions", "Count Spaces", new PickHandler(MenuItem_CountSpaces));
-            m_DelegatesMainMenu.AddMenuItem("Actions", "Chars Count", new PickHandler(MenuItem_CharsCount));
+            m_DelegatesMainMenu.AddMenuItem("Actions", "Count Spaces", new PickHandler(MenuItemCountSpaces_Pick));
+            m_DelegatesMainMenu.AddMenuItem("Actions", "Chars Count", new PickHandler(MenuItemCharsCount_Pick));
             m_DelegatesMainMenu.AddMenuItem("Main Menu", "Show Date/Time");
-            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Time", new PickHandler(MenuItem_ShowTime));
-            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Date", new PickHandler(MenuItem_ShowDate));
+            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Time", new PickHandler(MenuItemShowTime_Pick));
+            m_DelegatesMainMenu.AddMenuItem("Show Date/Time", "Show Date", new PickHandler(MenuItemShowDate_Pick));
         }
 
         // TODO: ORI - neads exception handling
@@ -77,31 +77,31 @@ namespace Ex04.Menus.Test
             switch (i_ChosenOption)
             {
                 case eOptions.CharsCount:
-                    MenuItem_CharsCount();
+                    MenuItemCharsCount_Pick();
                     break;
                 case eOptions.CountSpaces:
-                    MenuItem_CountSpaces();
+                    MenuItemCountSpaces_Pick();
                     break;
                 case eOptions.DisplayVersion:
-                    MenuItem_DisplayVersion();
+                    MenuItemDisplayVersion_Pick();
                     break;
                 case eOptions.ShowDate:
-                    MenuItem_ShowDate();
+                    MenuItemShowDate_Pick();
                     break;
                 case eOptions.ShowTime:
-                    MenuItem_ShowTime();
+                    MenuItemShowTime_Pick();
                     break;
                 default:
                     break;
             }
         }
 
-        private void MenuItem_DisplayVersion()
+        private void MenuItemDisplayVersion_Pick()
         {
             Console.WriteLine("App Version: 17.2.4.0");
         }
 
-        private void MenuItem_CountSpaces()
+        private void MenuItemCountSpaces_Pick()
         {
             Console.WriteLine("Please enter a sentence");
             string userInput = Console.ReadLine();
@@ -109,20 +109,20 @@ namespace Ex04.Menus.Test
             Console.WriteLine("There are {0} whitespaces", occurences);
         }
 
-        private void MenuItem_CharsCount()
+        private void MenuItemCharsCount_Pick()
         {
             Console.WriteLine("Please enter a sentence");
             string userInput = Console.ReadLine();
             Console.WriteLine("There are {0} characters", userInput.Length);
         }
 
-        private void MenuItem_ShowDate()
+        private void MenuItemShowDate_Pick()
         {
             DateTime today = DateTime.Today;
             Console.WriteLine("Today is: {0}", today.ToString("d"));
         }
 
-        private void MenuItem_ShowTime()
+        private void MenuItemShowTime_Pick()
         {
             DateTime localDate = DateTime.Now;
             Console.WriteLine("The time is: {0}", localDate.ToString("h:mm:ss tt"));

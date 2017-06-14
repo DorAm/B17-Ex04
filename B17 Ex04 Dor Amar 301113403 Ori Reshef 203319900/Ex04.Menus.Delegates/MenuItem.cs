@@ -15,7 +15,7 @@ namespace Ex04.Menus.Delegates
 
         // Delegates
         public event PickHandler Pick;
-
+        
         // Getters 
         public string Option { get => m_Option; }
 
@@ -82,19 +82,27 @@ namespace Ex04.Menus.Delegates
         private ushort getUsersChoice()
         {
             string input = Console.ReadLine();
-            ushort usersChoice = ushort.Parse(input); // TODO: handle empty strings and other things
-            while (isValidInput(usersChoice) == false)
+            ushort usersChoice;
+            // TODO: handle empty strings and other things
+            while (validateAndParse(input, out usersChoice) == false)
             {
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
-                usersChoice = ushort.Parse(input);
+                input = Console.ReadLine();
             }
 
             return usersChoice;
         }
 
-        private bool isValidInput(ushort i_UsersChoice)
+        private bool validateAndParse(string i_UsersChoice, out ushort o_UsersChoice)
         {
-            return i_UsersChoice >= 0 && i_UsersChoice <= m_ChildItems.Count;
+            bool isValid = ushort.TryParse(i_UsersChoice, out o_UsersChoice);
+
+            if (isValid)
+            {
+                isValid = o_UsersChoice >= 0 && o_UsersChoice <= m_ChildItems.Count;
+            }
+
+            return isValid;
         }
 
         protected virtual void OnPick()

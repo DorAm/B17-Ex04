@@ -84,24 +84,29 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
-        // TODO: ORI - handle exception in user input (for example letters instead of number)
         private ushort getUsersChoice()
         {
             string input = Console.ReadLine();
-            ushort usersChoice = ushort.Parse(input);
-            while (isValidInput(usersChoice) == false)
+            ushort usersChoice;
+            while (validateAndParse(input, out usersChoice) == false)
             {
                 Console.WriteLine("Invalid Input, Please re-enter your choice:");
                 input = Console.ReadLine();
-                usersChoice = ushort.Parse(input);
             }
 
             return usersChoice;
         }
 
-        private bool isValidInput(ushort i_UsersChoice)
+        private bool validateAndParse(string i_UsersChoice, out ushort o_UsersChoice)
         {
-            return i_UsersChoice >= 0 && i_UsersChoice <= m_ChildItems.Count;
+            bool isValid = ushort.TryParse(i_UsersChoice, out o_UsersChoice);
+
+            if (isValid)
+            {
+                isValid = o_UsersChoice >= 0 && o_UsersChoice <= m_ChildItems.Count;
+            }
+
+            return isValid;
         }
     }
 }
